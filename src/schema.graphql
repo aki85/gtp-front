@@ -1,0 +1,35 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Todo {
+  id: ID!
+  title: String!
+  isDone: Boolean!
+  createdAt: String!
+  updatedAt: String!
+}
+
+type Query {
+  """todoを取得"""
+  todo(id: ID!): Todo!
+
+  """todo一覧を取得"""
+  todos: [Todo!]!
+}
+
+type Mutation {
+  """todoを作成"""
+  createTodo(input: TodoInput!): Todo!
+
+  """todoを更新"""
+  updateTodo(input: TodoInput!, id: ID!): Todo!
+
+  """todoを削除"""
+  deleteTodo(id: ID!): String!
+}
+
+input TodoInput {
+  title: String!
+  isDone: Boolean
+}

@@ -1,0 +1,27 @@
+{
+  "extends": ["tslint:recommended", "tslint-react", "tslint-config-prettier"],
+  "linterOptions": {
+    "exclude": [
+      "config/**/*.js",
+      "node_modules/**/*.ts",
+      "coverage/lcov-report/*.js",
+      "src/*"
+    ]
+  },
+  "rules": {
+    "interface-name": [false],
+    "ordered-imports": [false],
+    "object-literal-sort-keys": [false],
+    "no-console": [false],
+    "no-shadowed-variable": [false],
+    "jsx-no-lambda": [false],
+    "variable-name": {
+      "options": [
+        "ban-keywords",
+        "check-format",
+        "allow-leading-underscore",
+        "allow-pascal-case"
+      ]
+    }
+  }
+}

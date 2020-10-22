@@ -1,0 +1,112 @@
+body {
+  color: #333;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  min-width: 400px;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+.todo {
+  min-height: 100vh;
+  display: flex;
+  flex-flow: column;
+}
+
+header {
+  color: #fff;
+  background-color: #333;
+  text-align: center;
+  padding: 1rem 0;
+}
+
+.main {
+  flex: 1;
+  margin: 0 auto;
+  width: 60%;
+  padding: 2rem 0;
+
+  ul {
+    list-style-type: none;
+    padding-left: 0;
+
+    li {
+      padding: 0.7rem 0 0.7rem 1rem;
+      border-bottom: solid #333 1px;
+
+      input{
+        display: inline-block;
+        width: 95%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        @media screen and (max-width: 768px) {
+          width: 90%;
+        }
+      }
+
+      a{
+        vertical-align: top;
+      }
+    }
+  }
+}
+
+footer {
+  color: #fff;
+  background-color: #666;
+  text-align: center;
+  padding: 1rem 0;
+
+  a {
+    font-weight: bold;
+    color: inherit;
+
+    &:hover {
+      color: inherit;
+      text-decoration: none;
+    }
+  }
+}
+
+a {
+  color: #333;
+}
+
+a:hover {
+  color: #666;
+}
+
+header a {
+  color: #666;
+}
+
+.form-control {
+  color: #333;
+}
+
+input.form-control:focus {
+  box-shadow: 0 0 0 0.2rem rgba(108,117,125,.5);
+  border-color: rgba(108,117,125,.5);
+}
+
+li .list-form {
+  height: unset;
+  border: none;
+  padding: 0;
+}
+
+input.form-control:focus {
+  box-shadow: none;
+}
+
+.btn-outline-secondary {
+  outline: 0;
+}

@@ -1,0 +1,11 @@
+query todos {
+  todos {
+    ...TodoItem
+  }
+}
+
+query todo($id: ID!) {
+  todo(id: $id) {
+    ...TodoItem
+  }
+}
