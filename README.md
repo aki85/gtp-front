@@ -1,7 +1,7 @@
-# react-graphql-template
+# gitlev-front
 
 ## Server
-https://github.com/aki85/todo-nestjs-graphql
+https://github.com/aki85/gtp-server
 
 ## Environment
 * nodejs: ^12.x

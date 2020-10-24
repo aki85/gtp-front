@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 interface Props {
-  isAdmin: boolean
+  isAdmin?: boolean
 }
 
 const Header = (props: Props) => {

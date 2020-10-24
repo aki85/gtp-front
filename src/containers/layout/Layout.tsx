@@ -3,7 +3,7 @@ import Header from './Header'
 import Footer from './Footer'
 
 interface Props {
-  isAdmin: boolean
+  isAdmin?: boolean
 }
 
 const Layout = (props: React.Props<null> & Props) => {
