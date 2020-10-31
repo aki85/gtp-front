@@ -27,6 +27,15 @@ header {
   background-color: #333;
   text-align: center;
   padding: 1rem 0;
+  
+  a.logo {
+    color: #fff;
+  }
+
+  a.logo:hover {
+    color: #fff;
+    text-decoration: none;
+  }
 }
 
 .main {

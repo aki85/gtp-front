@@ -1,19 +1,14 @@
 import React from 'react'
 import Layout from './layout/Layout'
-import TodoComponent from '../components/TodoComponent'
-import { useLocation } from 'react-router'
+import HomeComponent from '../components/HomeComponent'
 
 import _ from 'lodash'
 
 const HomePage = () => {
-  const location = useLocation()
-  const isAdmin = location.pathname === '/admin'
   return (
-    <Layout isAdmin={isAdmin}>
+    <Layout>
       <div className="main">
-        <TodoComponent
-          isAdmin={isAdmin}
-        />
+        <HomeComponent />
       </div>
     </Layout>
   )
