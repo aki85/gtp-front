@@ -1,3 +1,7 @@
-.btn-social>:first-child {
-  top: 4px;
+.btn-social {
+  width: 100%;
+
+  > :first-child {
+    top: 4px;
+  }
 }

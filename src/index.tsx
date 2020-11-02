@@ -2,10 +2,11 @@ import React from 'react'
 import * as ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
 
-import { AccountServiceContextProvider } from './contexts/app'
+import { AuthServiceContextProvider } from './contexts/app'
 import { GraphqlProvider } from './graphql/provider'
 import store from './store'
 import App from './App'
+import 'loaders.css'
 import 'font-awesome/css/font-awesome.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap-social/bootstrap-social.css'
@@ -14,11 +15,11 @@ import registerServiceWorker from './registerServiceWorker'
 
 ReactDOM.render(
   <Provider store={store}>
-    <AccountServiceContextProvider>
+    <AuthServiceContextProvider>
       <GraphqlProvider>
         <App />
       </GraphqlProvider>
-    </AccountServiceContextProvider>
+    </AuthServiceContextProvider>
   </Provider>,
   document.getElementById('root')
 )

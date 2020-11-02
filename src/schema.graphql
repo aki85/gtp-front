@@ -2,34 +2,62 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type Todo {
+type CoopInfo {
   id: ID!
-  title: String!
-  isDone: Boolean!
+  email: String!
+  name: String
+  alias: String!
+}
+
+type RepositoryCountData {
+  involvedCount: Int!
+  ownerCount: Int!
+}
+
+type Language {
+  name: String!
+  color: String!
+  size: Int!
+  level: Int!
+}
+
+type LanguagesTotal {
+  size: Int!
+  level: Int!
+}
+
+type LanguagesData {
+  involvedLanguages: [Language!]!
+  involvedLanguagesTotal: LanguagesTotal!
+  ownerLanguages: [Language!]!
+  ownerLanguagesTotal: LanguagesTotal!
+}
+
+type GithubAnalysis {
+  repositoryCountData: RepositoryCountData!
+  languagesData: LanguagesData!
+}
+
+type Account {
+  id: ID!
+  githubId: ID
+  name: String!
+  githubInfo: CoopInfo
+  githubAnalysis: GithubAnalysis
   createdAt: String!
   updatedAt: String!
 }
 
 type Query {
-  """todoを取得"""
-  todo(id: ID!): Todo!
-
-  """todo一覧を取得"""
-  todos: [Todo!]!
+  """accountを取得"""
+  account: Account!
 }
 
 type Mutation {
-  """todoを作成"""
-  createTodo(input: TodoInput!): Todo!
-
-  """todoを更新"""
-  updateTodo(input: TodoInput!, id: ID!): Todo!
-
-  """todoを削除"""
-  deleteTodo(id: ID!): String!
+  """acountを更新"""
+  updateAccount(input: AccountInput!): Account!
 }
 
-input TodoInput {
-  title: String!
-  isDone: Boolean
+input AccountInput {
+  name: String!
 }

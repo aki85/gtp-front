@@ -1,0 +1,42 @@
+.login, .signup, .register {
+  text-align: center;
+  max-width: 1000px;
+
+  h2 {
+    margin-bottom: 2.5rem;
+  }
+
+  .explain {
+    margin-bottom: 2rem;
+  }
+
+  form {
+    max-width: 300px;
+    margin: 0 auto;
+    margin-bottom: 1rem;
+
+    .btn-social {
+      text-align: center;
+      > :first-child {
+        width: 3rem;
+        border-right: 1px solid $white;
+      }
+    }
+  }
+
+  .error {
+    color: #830202;
+  }
+  
+  .link {
+    margin-bottom: 2rem;
+    a {
+      text-decoration: underline;
+    }
+  }
+
+  .caution {
+    color: $sub-color;
+    font-size: 80%;
+  }
+}

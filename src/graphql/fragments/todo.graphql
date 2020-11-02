@@ -1,5 +1,0 @@
-fragment TodoItem on Todo {
-  id
-  title
-  isDone
-}

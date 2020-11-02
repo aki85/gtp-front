@@ -1,0 +1,11 @@
+fragment LanguageItem on Language {
+  name
+  color
+  size
+  level
+}
+
+fragment LanguagesTotalItem on LanguagesTotal {
+  size
+  level
+}

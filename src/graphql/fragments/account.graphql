@@ -1,0 +1,27 @@
+fragment AccountItem on Account {
+  id
+  githubId
+  name
+  githubAnalysis {
+    repositoryCountData {
+      involvedCount
+      ownerCount
+    }
+    languagesData {
+      involvedLanguages {
+        ...LanguageItem
+      }
+      involvedLanguagesTotal {
+        ...LanguagesTotalItem
+      }
+      ownerLanguages {
+        ...LanguageItem
+      }
+      ownerLanguagesTotal {
+        ...LanguagesTotalItem
+      }
+    }
+  }
+  createdAt
+  updatedAt
+}

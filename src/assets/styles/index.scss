@@ -1,14 +1,17 @@
+@import 'variables';
+@import 'auth';
+@import 'home';
 @import 'overwrite';
 
 body {
-  color: #333;
+  color: $primary-color;
+  background-color: $white;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  min-width: 400px;
 }
 
 code {
@@ -16,25 +19,36 @@ code {
     monospace;
 }
 
-.todo {
+.layout {
   min-height: 100vh;
   display: flex;
   flex-flow: column;
 }
 
 header {
-  color: #fff;
-  background-color: #333;
+  color: $white;
+  background-color: $primary-color;
   text-align: center;
   padding: 1rem 0;
   
   a.logo {
-    color: #fff;
+    color: $white;
   }
 
   a.logo:hover {
-    color: #fff;
+    color: $white;
     text-decoration: none;
+  }
+
+  a.logout {
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
+    color: $white;
+  }
+
+  a.logout:hover {
+    color: darken($color: $white, $amount: 20%);
   }
 }
 
@@ -42,7 +56,13 @@ header {
   flex: 1;
   margin: 0 auto;
   width: 60%;
+  min-width: 600px;
   padding: 2rem 0;
+
+  @media screen and (max-width: 768px) {
+    width: 90%;
+    min-width: 300px;
+  }
 
   ul {
     list-style-type: none;
@@ -50,7 +70,7 @@ header {
 
     li {
       padding: 0.7rem 0 0.7rem 1rem;
-      border-bottom: solid #333 1px;
+      border-bottom: solid $primary-color 1px;
 
       input{
         display: inline-block;
@@ -71,8 +91,8 @@ header {
 }
 
 footer {
-  color: #fff;
-  background-color: #666;
+  color: $white;
+  background-color: $sub-color;
   text-align: center;
   padding: 1rem 0;
 
@@ -88,24 +108,24 @@ footer {
 }
 
 a {
-  color: #333;
+  color: $primary-color;
 }
 
 a:hover {
-  color: #666;
+  color: $sub-color;
 }
 
 header a {
-  color: #666;
+  color: $sub-color;
 }
 
 .form-control {
-  color: #333;
+  color: $primary-color;
 }
 
 input.form-control:focus {
-  box-shadow: 0 0 0 0.2rem rgba(108,117,125,.5);
-  border-color: rgba(108,117,125,.5);
+  box-shadow: 0 0 0 0.2rem $sub-color;
+  border-color: $sub-color;
 }
 
 li .list-form {

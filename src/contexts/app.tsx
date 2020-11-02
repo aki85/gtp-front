@@ -1,21 +1,21 @@
 import React from 'react'
 
-import AccountService from '../services/account'
+import AuthService from '../services/auth'
 
-export const AccountServiceContext = React.createContext<AccountService | undefined>(undefined)
+export const AuthServiceContext = React.createContext<AuthService | undefined>(undefined)
 
-export const AccountServiceContextProvider: React.FC = ({ children }) => {
-  const accountService = new AccountService()
+export const AuthServiceContextProvider: React.FC = ({ children }) => {
+  const authService = new AuthService()
   return (
-    <AccountServiceContext.Provider value={accountService}>
+    <AuthServiceContext.Provider value={authService}>
       { children }
-    </AccountServiceContext.Provider>
+    </AuthServiceContext.Provider>
   )
 }
 
 
-export const useAccountServiceContext = () => {
-  const context = React.useContext(AccountServiceContext)
+export const useAuthServiceContext = () => {
+  const context = React.useContext(AuthServiceContext)
   if (context === undefined) {
     throw new Error('useAppService must be used within a AppContextProvider')
   }

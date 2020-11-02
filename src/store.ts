@@ -1,12 +1,12 @@
 import { createStore } from 'redux'
 
-export interface RootState {
+export interface IRootState {
 }
 
-const initialState: RootState = {
+const initialState: IRootState = {
 }
 
-const changeState = (state = initialState, { type = '', ...rest }): RootState => {
+const changeState = (state = initialState, { type = '', ...rest }): IRootState => {
   switch (type) {
     default:
       return state

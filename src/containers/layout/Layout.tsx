@@ -4,7 +4,7 @@ import Footer from './Footer'
 
 const Layout = (props: React.Props<null>) => {
   return (
-    <div className="todo">
+    <div className="layout">
       <Header />
       {props.children}
       <Footer />
