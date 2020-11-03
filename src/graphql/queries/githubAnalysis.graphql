@@ -1,0 +1,17 @@
+query githubAnalysis($id: String!) {
+  githubAnalysis(id: $id) {
+    ...GithubAnalysisItem
+  }
+}
+
+query githubAnalysisByLogin($login: String!) {
+  githubAnalysisByLogin(login: $login) {
+    ...GithubAnalysisItem
+  }
+}
+
+query githubAnalysisLogs($login: String!) {
+  githubAnalysisLogs(login: $login) {
+    ...GithubAnalysisItem
+  }
+}

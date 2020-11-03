@@ -1,6 +1,6 @@
 import React from 'react'
 import Layout from './layout/Layout'
-import SignupComponent from '../components/SignupComponent'
+import SignupComponent from '../components/Signup'
 
 import _ from 'lodash'
 

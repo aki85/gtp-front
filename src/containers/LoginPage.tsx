@@ -1,6 +1,6 @@
 import React from 'react'
 import Layout from './layout/Layout'
-import LoginComponent from '../components/LoginComponent'
+import LoginComponent from '../components/Login'
 
 import _ from 'lodash'
 

@@ -30,25 +30,44 @@ header {
   background-color: $primary-color;
   text-align: center;
   padding: 1rem 0;
+
+  a.home {
+    position: absolute;
+    left: 1rem;
+    top: 1rem;
+  }
+  
+  .search {
+    position: absolute;
+    left: 4rem;
+    top: 0.8rem;
+    input {
+      font-family: FontAwesome;
+    }
+    a {
+      margin-left: 1rem;
+    }
+  }
+  
+  a {
+    color: $white;
+    &:hover {
+      color: darken($color: $white, $amount: 20%);
+    }
+  }
   
   a.logo {
     color: $white;
-  }
-
-  a.logo:hover {
-    color: $white;
-    text-decoration: none;
+    &:hover {
+      color: $white;
+      text-decoration: none;
+    }
   }
 
   a.logout {
     position: absolute;
     right: 1rem;
     top: 1rem;
-    color: $white;
-  }
-
-  a.logout:hover {
-    color: darken($color: $white, $amount: 20%);
   }
 }
 
@@ -112,10 +131,6 @@ a {
 }
 
 a:hover {
-  color: $sub-color;
-}
-
-header a {
   color: $sub-color;
 }
 

@@ -1,0 +1,23 @@
+fragment GithubAnalysisItem on GithubAnalysis {
+  login
+  repositoryCountData {
+    involvedCount
+    ownerCount
+  }
+  languagesData {
+    involvedLanguages {
+      ...LanguageItem
+    }
+    involvedLanguagesTotal {
+      ...LanguagesTotalItem
+    }
+    ownerLanguages {
+      ...LanguageItem
+    }
+    ownerLanguagesTotal {
+      ...LanguagesTotalItem
+    }
+  }
+  savedAt
+  syncedAt
+}

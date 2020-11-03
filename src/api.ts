@@ -51,6 +51,10 @@ export type GithubAnalysis = {
   __typename?: 'GithubAnalysis';
   repositoryCountData: RepositoryCountData;
   languagesData: LanguagesData;
+  id?: Maybe<Scalars['ID']>;
+  login?: Maybe<Scalars['ID']>;
+  savedAt?: Maybe<Scalars['String']>;
+  syncedAt?: Maybe<Scalars['String']>;
 };
 
 export type Account = {
@@ -68,17 +72,45 @@ export type Query = {
   __typename?: 'Query';
   /** accountを取得 */
   account: Account;
+  /** githubAnalysisを取得 */
+  githubAnalysis: GithubAnalysis;
+  /** githubAnalysisをloginで取得 */
+  githubAnalysisByLogin: GithubAnalysis;
+  /** 保存したgithubAnalysisの一覧を取得 */
+  githubAnalysisLogs: GithubAnalysis;
+};
+
+
+export type QueryGithubAnalysisArgs = {
+  id: Scalars['String'];
+};
+
+
+export type QueryGithubAnalysisByLoginArgs = {
+  login: Scalars['String'];
+};
+
+
+export type QueryGithubAnalysisLogsArgs = {
+  login: Scalars['String'];
 };
 
 export type Mutation = {
   __typename?: 'Mutation';
   /** acountを更新 */
   updateAccount: Account;
+  /** githubAnalysisを同期 */
+  syncGithubAnalysis: GithubAnalysis;
 };
 
 
 export type MutationUpdateAccountArgs = {
   input: AccountInput;
+};
+
+
+export type MutationSyncGithubAnalysisArgs = {
+  login: Scalars['String'];
 };
 
 export type AccountInput = {
@@ -90,26 +122,32 @@ export type AccountItemFragment = (
   & Pick<Account, 'id' | 'githubId' | 'name' | 'createdAt' | 'updatedAt'>
   & { githubAnalysis?: Maybe<(
     { __typename?: 'GithubAnalysis' }
-    & { repositoryCountData: (
-      { __typename?: 'RepositoryCountData' }
-      & Pick<RepositoryCountData, 'involvedCount' | 'ownerCount'>
-    ), languagesData: (
-      { __typename?: 'LanguagesData' }
-      & { involvedLanguages: Array<(
-        { __typename?: 'Language' }
-        & LanguageItemFragment
-      )>, involvedLanguagesTotal: (
-        { __typename?: 'LanguagesTotal' }
-        & LanguagesTotalItemFragment
-      ), ownerLanguages: Array<(
-        { __typename?: 'Language' }
-        & LanguageItemFragment
-      )>, ownerLanguagesTotal: (
-        { __typename?: 'LanguagesTotal' }
-        & LanguagesTotalItemFragment
-      ) }
-    ) }
+    & GithubAnalysisItemFragment
   )> }
+);
+
+export type GithubAnalysisItemFragment = (
+  { __typename?: 'GithubAnalysis' }
+  & Pick<GithubAnalysis, 'login' | 'savedAt' | 'syncedAt'>
+  & { repositoryCountData: (
+    { __typename?: 'RepositoryCountData' }
+    & Pick<RepositoryCountData, 'involvedCount' | 'ownerCount'>
+  ), languagesData: (
+    { __typename?: 'LanguagesData' }
+    & { involvedLanguages: Array<(
+      { __typename?: 'Language' }
+      & LanguageItemFragment
+    )>, involvedLanguagesTotal: (
+      { __typename?: 'LanguagesTotal' }
+      & LanguagesTotalItemFragment
+    ), ownerLanguages: Array<(
+      { __typename?: 'Language' }
+      & LanguageItemFragment
+    )>, ownerLanguagesTotal: (
+      { __typename?: 'LanguagesTotal' }
+      & LanguagesTotalItemFragment
+    ) }
+  ) }
 );
 
 export type LanguageItemFragment = (
@@ -135,6 +173,19 @@ export type UpdateAccountMutation = (
   ) }
 );
 
+export type SyncGithubAnalysisMutationVariables = Exact<{
+  login: Scalars['String'];
+}>;
+
+
+export type SyncGithubAnalysisMutation = (
+  { __typename?: 'Mutation' }
+  & { syncGithubAnalysis: (
+    { __typename?: 'GithubAnalysis' }
+    & GithubAnalysisItemFragment
+  ) }
+);
+
 export type AccountQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -143,6 +194,45 @@ export type AccountQuery = (
   & { account: (
     { __typename?: 'Account' }
     & AccountItemFragment
+  ) }
+);
+
+export type GithubAnalysisQueryVariables = Exact<{
+  id: Scalars['String'];
+}>;
+
+
+export type GithubAnalysisQuery = (
+  { __typename?: 'Query' }
+  & { githubAnalysis: (
+    { __typename?: 'GithubAnalysis' }
+    & GithubAnalysisItemFragment
+  ) }
+);
+
+export type GithubAnalysisByLoginQueryVariables = Exact<{
+  login: Scalars['String'];
+}>;
+
+
+export type GithubAnalysisByLoginQuery = (
+  { __typename?: 'Query' }
+  & { githubAnalysisByLogin: (
+    { __typename?: 'GithubAnalysis' }
+    & GithubAnalysisItemFragment
+  ) }
+);
+
+export type GithubAnalysisLogsQueryVariables = Exact<{
+  login: Scalars['String'];
+}>;
+
+
+export type GithubAnalysisLogsQuery = (
+  { __typename?: 'Query' }
+  & { githubAnalysisLogs: (
+    { __typename?: 'GithubAnalysis' }
+    & GithubAnalysisItemFragment
   ) }
 );
 
@@ -160,36 +250,44 @@ export const LanguagesTotalItemFragmentDoc = gql`
   level
 }
     `;
+export const GithubAnalysisItemFragmentDoc = gql`
+    fragment GithubAnalysisItem on GithubAnalysis {
+  login
+  repositoryCountData {
+    involvedCount
+    ownerCount
+  }
+  languagesData {
+    involvedLanguages {
+      ...LanguageItem
+    }
+    involvedLanguagesTotal {
+      ...LanguagesTotalItem
+    }
+    ownerLanguages {
+      ...LanguageItem
+    }
+    ownerLanguagesTotal {
+      ...LanguagesTotalItem
+    }
+  }
+  savedAt
+  syncedAt
+}
+    ${LanguageItemFragmentDoc}
+${LanguagesTotalItemFragmentDoc}`;
 export const AccountItemFragmentDoc = gql`
     fragment AccountItem on Account {
   id
   githubId
   name
   githubAnalysis {
-    repositoryCountData {
-      involvedCount
-      ownerCount
-    }
-    languagesData {
-      involvedLanguages {
-        ...LanguageItem
-      }
-      involvedLanguagesTotal {
-        ...LanguagesTotalItem
-      }
-      ownerLanguages {
-        ...LanguageItem
-      }
-      ownerLanguagesTotal {
-        ...LanguagesTotalItem
-      }
-    }
+    ...GithubAnalysisItem
   }
   createdAt
   updatedAt
 }
-    ${LanguageItemFragmentDoc}
-${LanguagesTotalItemFragmentDoc}`;
+    ${GithubAnalysisItemFragmentDoc}`;
 export const UpdateAccountDocument = gql`
     mutation updateAccount($input: AccountInput!) {
   updateAccount(input: $input) {
@@ -222,6 +320,38 @@ export function useUpdateAccountMutation(baseOptions?: Apollo.MutationHookOption
 export type UpdateAccountMutationHookResult = ReturnType<typeof useUpdateAccountMutation>;
 export type UpdateAccountMutationResult = Apollo.MutationResult<UpdateAccountMutation>;
 export type UpdateAccountMutationOptions = Apollo.BaseMutationOptions<UpdateAccountMutation, UpdateAccountMutationVariables>;
+export const SyncGithubAnalysisDocument = gql`
+    mutation syncGithubAnalysis($login: String!) {
+  syncGithubAnalysis(login: $login) {
+    ...GithubAnalysisItem
+  }
+}
+    ${GithubAnalysisItemFragmentDoc}`;
+export type SyncGithubAnalysisMutationFn = Apollo.MutationFunction<SyncGithubAnalysisMutation, SyncGithubAnalysisMutationVariables>;
+
+/**
+ * __useSyncGithubAnalysisMutation__
+ *
+ * To run a mutation, you first call `useSyncGithubAnalysisMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useSyncGithubAnalysisMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [syncGithubAnalysisMutation, { data, loading, error }] = useSyncGithubAnalysisMutation({
+ *   variables: {
+ *      login: // value for 'login'
+ *   },
+ * });
+ */
+export function useSyncGithubAnalysisMutation(baseOptions?: Apollo.MutationHookOptions<SyncGithubAnalysisMutation, SyncGithubAnalysisMutationVariables>) {
+        return Apollo.useMutation<SyncGithubAnalysisMutation, SyncGithubAnalysisMutationVariables>(SyncGithubAnalysisDocument, baseOptions);
+      }
+export type SyncGithubAnalysisMutationHookResult = ReturnType<typeof useSyncGithubAnalysisMutation>;
+export type SyncGithubAnalysisMutationResult = Apollo.MutationResult<SyncGithubAnalysisMutation>;
+export type SyncGithubAnalysisMutationOptions = Apollo.BaseMutationOptions<SyncGithubAnalysisMutation, SyncGithubAnalysisMutationVariables>;
 export const AccountDocument = gql`
     query account {
   account {
@@ -254,3 +384,102 @@ export function useAccountLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Ac
 export type AccountQueryHookResult = ReturnType<typeof useAccountQuery>;
 export type AccountLazyQueryHookResult = ReturnType<typeof useAccountLazyQuery>;
 export type AccountQueryResult = Apollo.QueryResult<AccountQuery, AccountQueryVariables>;
+export const GithubAnalysisDocument = gql`
+    query githubAnalysis($id: String!) {
+  githubAnalysis(id: $id) {
+    ...GithubAnalysisItem
+  }
+}
+    ${GithubAnalysisItemFragmentDoc}`;
+
+/**
+ * __useGithubAnalysisQuery__
+ *
+ * To run a query within a React component, call `useGithubAnalysisQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGithubAnalysisQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGithubAnalysisQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useGithubAnalysisQuery(baseOptions?: Apollo.QueryHookOptions<GithubAnalysisQuery, GithubAnalysisQueryVariables>) {
+        return Apollo.useQuery<GithubAnalysisQuery, GithubAnalysisQueryVariables>(GithubAnalysisDocument, baseOptions);
+      }
+export function useGithubAnalysisLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GithubAnalysisQuery, GithubAnalysisQueryVariables>) {
+          return Apollo.useLazyQuery<GithubAnalysisQuery, GithubAnalysisQueryVariables>(GithubAnalysisDocument, baseOptions);
+        }
+export type GithubAnalysisQueryHookResult = ReturnType<typeof useGithubAnalysisQuery>;
+export type GithubAnalysisLazyQueryHookResult = ReturnType<typeof useGithubAnalysisLazyQuery>;
+export type GithubAnalysisQueryResult = Apollo.QueryResult<GithubAnalysisQuery, GithubAnalysisQueryVariables>;
+export const GithubAnalysisByLoginDocument = gql`
+    query githubAnalysisByLogin($login: String!) {
+  githubAnalysisByLogin(login: $login) {
+    ...GithubAnalysisItem
+  }
+}
+    ${GithubAnalysisItemFragmentDoc}`;
+
+/**
+ * __useGithubAnalysisByLoginQuery__
+ *
+ * To run a query within a React component, call `useGithubAnalysisByLoginQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGithubAnalysisByLoginQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGithubAnalysisByLoginQuery({
+ *   variables: {
+ *      login: // value for 'login'
+ *   },
+ * });
+ */
+export function useGithubAnalysisByLoginQuery(baseOptions?: Apollo.QueryHookOptions<GithubAnalysisByLoginQuery, GithubAnalysisByLoginQueryVariables>) {
+        return Apollo.useQuery<GithubAnalysisByLoginQuery, GithubAnalysisByLoginQueryVariables>(GithubAnalysisByLoginDocument, baseOptions);
+      }
+export function useGithubAnalysisByLoginLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GithubAnalysisByLoginQuery, GithubAnalysisByLoginQueryVariables>) {
+          return Apollo.useLazyQuery<GithubAnalysisByLoginQuery, GithubAnalysisByLoginQueryVariables>(GithubAnalysisByLoginDocument, baseOptions);
+        }
+export type GithubAnalysisByLoginQueryHookResult = ReturnType<typeof useGithubAnalysisByLoginQuery>;
+export type GithubAnalysisByLoginLazyQueryHookResult = ReturnType<typeof useGithubAnalysisByLoginLazyQuery>;
+export type GithubAnalysisByLoginQueryResult = Apollo.QueryResult<GithubAnalysisByLoginQuery, GithubAnalysisByLoginQueryVariables>;
+export const GithubAnalysisLogsDocument = gql`
+    query githubAnalysisLogs($login: String!) {
+  githubAnalysisLogs(login: $login) {
+    ...GithubAnalysisItem
+  }
+}
+    ${GithubAnalysisItemFragmentDoc}`;
+
+/**
+ * __useGithubAnalysisLogsQuery__
+ *
+ * To run a query within a React component, call `useGithubAnalysisLogsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGithubAnalysisLogsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGithubAnalysisLogsQuery({
+ *   variables: {
+ *      login: // value for 'login'
+ *   },
+ * });
+ */
+export function useGithubAnalysisLogsQuery(baseOptions?: Apollo.QueryHookOptions<GithubAnalysisLogsQuery, GithubAnalysisLogsQueryVariables>) {
+        return Apollo.useQuery<GithubAnalysisLogsQuery, GithubAnalysisLogsQueryVariables>(GithubAnalysisLogsDocument, baseOptions);
+      }
+export function useGithubAnalysisLogsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GithubAnalysisLogsQuery, GithubAnalysisLogsQueryVariables>) {
+          return Apollo.useLazyQuery<GithubAnalysisLogsQuery, GithubAnalysisLogsQueryVariables>(GithubAnalysisLogsDocument, baseOptions);
+        }
+export type GithubAnalysisLogsQueryHookResult = ReturnType<typeof useGithubAnalysisLogsQuery>;
+export type GithubAnalysisLogsLazyQueryHookResult = ReturnType<typeof useGithubAnalysisLogsLazyQuery>;
+export type GithubAnalysisLogsQueryResult = Apollo.QueryResult<GithubAnalysisLogsQuery, GithubAnalysisLogsQueryVariables>;

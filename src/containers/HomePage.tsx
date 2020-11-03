@@ -1,6 +1,6 @@
 import React from 'react'
 import Layout from './layout/Layout'
-import HomeComponent from '../components/HomeComponent'
+import HomeComponent from '../components/Home'
 
 import _ from 'lodash'
 

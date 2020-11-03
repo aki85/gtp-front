@@ -36,6 +36,10 @@ type LanguagesData {
 type GithubAnalysis {
   repositoryCountData: RepositoryCountData!
   languagesData: LanguagesData!
+  id: ID
+  login: ID
+  savedAt: String
+  syncedAt: String
 }
 
 type Account {
@@ -51,11 +55,23 @@ type Account {
 type Query {
   """accountを取得"""
   account: Account!
+
+  """githubAnalysisを取得"""
+  githubAnalysis(id: String!): GithubAnalysis!
+
+  """githubAnalysisをloginで取得"""
+  githubAnalysisByLogin(login: String!): GithubAnalysis!
+
+  """保存したgithubAnalysisの一覧を取得"""
+  githubAnalysisLogs(login: String!): GithubAnalysis!
 }
 
 type Mutation {
   """acountを更新"""
   updateAccount(input: AccountInput!): Account!
+
+  """githubAnalysisを同期"""
+  syncGithubAnalysis(login: String!): GithubAnalysis!
 }
 
 input AccountInput {

@@ -3,24 +3,7 @@ fragment AccountItem on Account {
   githubId
   name
   githubAnalysis {
-    repositoryCountData {
-      involvedCount
-      ownerCount
-    }
-    languagesData {
-      involvedLanguages {
-        ...LanguageItem
-      }
-      involvedLanguagesTotal {
-        ...LanguagesTotalItem
-      }
-      ownerLanguages {
-        ...LanguageItem
-      }
-      ownerLanguagesTotal {
-        ...LanguagesTotalItem
-      }
-    }
+    ...GithubAnalysisItem
   }
   createdAt
   updatedAt

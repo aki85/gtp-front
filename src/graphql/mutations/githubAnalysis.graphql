@@ -1,0 +1,5 @@
+mutation syncGithubAnalysis($login: String!) {
+  syncGithubAnalysis(login: $login) {
+    ...GithubAnalysisItem
+  }
+}
