@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useParams, useHistory } from 'react-router-dom'
-import { useAuthServiceContext } from '../contexts/app'
+import { useAppContext } from '../contexts/app'
 
 declare global {  
   interface Window {  
@@ -12,7 +12,7 @@ const RegisterComponent: React.FC = () => {
   const history = useHistory()
   const { token } = useParams()
   const [isInvalid, setIsInvalid] = useState(false)
-  const { register } = useAuthServiceContext()
+  const { register } = useAppContext()
 
   if (!isInvalid && token) {
     register(token).then(res => {

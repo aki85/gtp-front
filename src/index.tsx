@@ -2,7 +2,7 @@ import React from 'react'
 import * as ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
 
-import { AuthServiceContextProvider } from './contexts/app'
+import { AppContextProvider } from './contexts/app'
 import { GraphqlProvider } from './graphql/provider'
 import store from './store'
 import App from './App'
@@ -15,11 +15,11 @@ import registerServiceWorker from './registerServiceWorker'
 
 ReactDOM.render(
   <Provider store={store}>
-    <AuthServiceContextProvider>
+    <AppContextProvider>
       <GraphqlProvider>
         <App />
       </GraphqlProvider>
-    </AuthServiceContextProvider>
+    </AppContextProvider>
   </Provider>,
   document.getElementById('root')
 )

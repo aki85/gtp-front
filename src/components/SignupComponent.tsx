@@ -1,13 +1,13 @@
 import React, { useState } from 'react'
 import { Form } from 'react-bootstrap'
 import { Link, useHistory } from 'react-router-dom'
-import { useAuthServiceContext } from '../contexts/app'
+import { useAppContext } from '../contexts/app'
 import { githubOAuth } from '../repos/githubOAuth'
 
 const SignupComponent: React.FC = () => {
   const [hasError, setHasError] = useState(false)
   const history = useHistory()
-  const { signupByCoop } = useAuthServiceContext()
+  const { signupByCoop } = useAppContext()
   async function onSubmit(e: any) {
     e.preventDefault()
     setHasError(false)

@@ -9,7 +9,7 @@ import {
 import { CoopInfo } from '../api'
 
 export default class AuthService {
-  public getToken() {
+  getToken() {
     return cookie.getAuthToken()
   }
 
@@ -23,14 +23,14 @@ export default class AuthService {
     const api = getApi()
     const response = await register(api, {token})
     cookie.setAuthToken(response.data.token)
-    return
+    return response.data.token
   }
 
   async loginByCoop(params: {type: string} & CoopInfo) {
     const api = getApi()
     const response = await loginByCoop(api, params)
     cookie.setAuthToken(response.data.token)
-    return
+    return response.data.token
   }
 
   async cancelMembership() {
