@@ -1,4 +1,6 @@
 import React from 'react'
+import { useParams, useHistory, useLocation } from 'react-router-dom'
+import { Row, Col } from 'react-bootstrap'
 
 import 'chartjs-plugin-datalabels'
 import { useGithubAnalysisByLoginQuery } from '../api'
@@ -6,9 +8,7 @@ import { useGithubAnalysisByLoginQuery } from '../api'
 import GithubAnalysisGraphRow from './githubAnalysis/GraphRow'
 import GithubAnalysisError from './githubAnalysis/Error'
 import GithubAnalysisCompareForm from './githubAnalysis/CompareForm'
-import { useParams, useHistory, useLocation } from 'react-router-dom'
 import { useAccountContext } from '../contexts/app'
-import { Row, Col } from 'react-bootstrap'
 
 const ViewComponent = () => {
   const query = new URLSearchParams(useLocation().search)
@@ -21,6 +21,7 @@ const ViewComponent = () => {
     }
   })
   const compareTargetLogin = query.get('compare') || ''
+  const isCompare = !!compareTargetLogin
 
   const compareTarget = useGithubAnalysisByLoginQuery({
     variables: {
@@ -43,7 +44,7 @@ const ViewComponent = () => {
     })
   }
 
-  function clearCompareTarget() {
+  function hideCompareTarget() {
     history.push({
       search: ''
     })
@@ -51,20 +52,20 @@ const ViewComponent = () => {
 
   return (
     <>
-      <Row className={'d-none d-md-flex' + (compareTargetLogin ? ' compared-graphs' : '')}>
-        <Col md={compareTargetLogin ? 6 : 12}>
+      <Row className={'d-none d-md-flex' + (isCompare ? ' compared-graphs' : '')}>
+        <Col md={isCompare ? 6 : 12}>
           <h1>
             {data.githubAnalysisByLogin.login}
-            {!compareTargetLogin &&
+            {!isCompare &&
               <>
                 <GithubAnalysisCompareForm login={data.githubAnalysisByLogin.login!}/>
-                <button className="btn btn-dark" onClick={() => compareWithMine()}>Compare with mine</button>
+                <button className="btn btn-dark" onClick={() => compareWithMine()}>Compare with Mine</button>
               </>
             }
           </h1>
         </Col>
 
-        {compareTargetLogin &&
+        {isCompare &&
           <Col md="6">
             {compareTarget.error &&
               <GithubAnalysisError login={compareTargetLogin}/>
@@ -74,7 +75,7 @@ const ViewComponent = () => {
                 <h1>
                   {compareTarget.data.githubAnalysisByLogin.login}
                   <GithubAnalysisCompareForm login={data.githubAnalysisByLogin.login!}/>
-                  <button className="btn btn-dark" onClick={() => clearCompareTarget()}>Clear</button>
+                  <button className="btn btn-dark" onClick={() => hideCompareTarget()}>Hide</button>
                 </h1>
               </>
             }
@@ -84,7 +85,7 @@ const ViewComponent = () => {
 
       <GithubAnalysisGraphRow
         githubAnalysis={data.githubAnalysisByLogin}
-        isCompare={!!compareTargetLogin}
+        isCompare={isCompare}
         compareGithubAnalysis={compareTarget.data?.githubAnalysisByLogin}
         type='owner'
       />
@@ -92,14 +93,14 @@ const ViewComponent = () => {
       <Row className="d-md-none">
         <Col md="12">
           <GithubAnalysisCompareForm login={data.githubAnalysisByLogin.login!}/>
-          {!compareTargetLogin && <button className="btn btn-dark" onClick={() => compareWithMine()}>Compare with mine</button>}
-          {compareTargetLogin &&<button className="btn btn-dark" onClick={() => clearCompareTarget()}>Clear</button>}
+          {!isCompare && <button className="btn btn-dark" onClick={() => compareWithMine()}>Compare with Mine</button>}
+          {isCompare &&<button className="btn btn-dark" onClick={() => hideCompareTarget()}>Hide</button>}
         </Col>
       </Row>
 
       <GithubAnalysisGraphRow
         githubAnalysis={data.githubAnalysisByLogin}
-        isCompare={!!compareTargetLogin}
+        isCompare={isCompare}
         compareGithubAnalysis={compareTarget.data?.githubAnalysisByLogin}
         type='involved'
       />

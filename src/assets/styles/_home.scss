@@ -13,7 +13,12 @@
   }
 
   button {
+    margin-right: 1rem;
     margin-bottom: 0;
+
+    &.btn-right {
+      float: right;
+    }
   }
 
   h1 {
@@ -29,10 +34,10 @@
     button {
       margin-left: 2rem;
       margin-bottom: 1rem;
-    }
 
-    .btn-right {
-      float: right;
+      &.btn-right {
+        float: right;
+      }
     }
   }
 
