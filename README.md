@@ -13,9 +13,9 @@ yarn
 ## dev
 
 ### graphql
-copy src/schema.graphql from your graphql server
+copy src/graphql/schema.graphql from your graphql server
 
-yarn run graphql-codegen
+yarn graphql-codegen
 
 ### dev server
 yarn start

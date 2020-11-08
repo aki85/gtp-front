@@ -3,3 +3,10 @@ query account {
     ...AccountItem
   }
 }
+
+query githubAnalysisLogs {
+  githubAnalysisLogs {
+    id
+    ...GithubAnalysisItem
+  }
+}

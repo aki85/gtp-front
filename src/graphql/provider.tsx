@@ -63,7 +63,19 @@ export const GraphqlProvider: React.FC = ({ children }) => {
       cleanTypenameLink,
       httpLink
     ]),
-    cache: new InMemoryCache()
+    cache: new InMemoryCache({
+      typePolicies: {
+        Query: {
+          fields: {
+            githubAnalysisLogs: {
+              merge(existing, incoming) {
+                return incoming
+              }
+            }
+          }
+        }
+      }
+    })
   })
 
   return (

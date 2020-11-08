@@ -1,6 +1,6 @@
 overwrite: true
 schema:
-  - src/schema.graphql
+  - src/graphql/schema.graphql
 documents:
   - ./src/graphql/fragments/*.graphql
   - ./src/graphql/queries/*.graphql

@@ -9,9 +9,3 @@ query githubAnalysisByLogin($login: String!) {
     ...GithubAnalysisItem
   }
 }
-
-query githubAnalysisLogs($login: String!) {
-  githubAnalysisLogs(login: $login) {
-    ...GithubAnalysisItem
-  }
-}

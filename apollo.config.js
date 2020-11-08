@@ -2,10 +2,10 @@ module.exports = {
   client: {
     excludes: [
       "src/api.ts",
-      "src/schema.graphql",
+      "src/graphql/schema.graphql",
     ],
     service: {
-      localSchemaFile: './src/schema.graphql',
+      localSchemaFile: './src/graphql/schema.graphql',
       name: "my-graphql-app",
     },
   }

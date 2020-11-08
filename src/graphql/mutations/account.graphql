@@ -3,3 +3,11 @@ mutation updateAccount($input: AccountInput!) {
     name
   }
 }
+
+mutation saveGithubAnalysis {
+  saveGithubAnalysis
+}
+
+mutation deleteGithubAnalysis($id: String!) {
+  deleteGithubAnalysis(id: $id)
+}
