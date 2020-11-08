@@ -2,13 +2,13 @@ import React from 'react'
 import { Route, Redirect } from 'react-router-dom'
 import { RouteProps } from 'react-router'
 
-import { useTokenContext } from '../../contexts/app'
+import { useAccountContext } from '../../contexts/app'
 
 type Props = RouteProps & { fallbackPath: string }
 
 const PrivateRoute: React.FC<Props> = (props: Props) => {
   const { component, children, fallbackPath, ...rest } = props
-  const { token } = useTokenContext()
+  const { token } = useAccountContext()
 
   const renderNextRoute = (routeProps: RouteProps) => {
     if (!token) {

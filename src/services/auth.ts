@@ -8,9 +8,29 @@ import {
 } from '../repos/api'
 import { CoopInfo } from '../api'
 
+const decodeJwt = (token: string) => {                                        
+  const base64Url = token.split('.')[1]                             
+  const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/')    
+  return JSON.parse(decodeURIComponent(escape(window.atob(base64))))
+}
+
 export default class AuthService {
   getToken() {
     return cookie.getAuthToken()
+  }
+
+  getCurrentAccount() {
+    const token = cookie.getAuthToken()
+    if (!token) return
+    const data = decodeJwt(token)
+
+    return {
+      token,
+      githubInfo: {
+        alias: data.githubInfo.alias,
+        name: data.githubInfo.name,
+      }
+    }
   }
 
   async signupByCoop(params: {type: string} & CoopInfo) {

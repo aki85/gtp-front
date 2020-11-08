@@ -10,7 +10,7 @@ import { setContext } from '@apollo/client/link/context'
 import { onError } from '@apollo/client/link/error'
 import { ApolloProvider } from '@apollo/react-hooks'
 import { getMainDefinition } from 'apollo-utilities'
-import { useTokenContext, useAppContext } from '../contexts/app'
+import { useAccountContext, useAppContext } from '../contexts/app'
 
 const httpLink = new HttpLink({
   uri: `${process.env.REACT_APP_API_URL}/graphql`,
@@ -19,7 +19,7 @@ const httpLink = new HttpLink({
 const isDevelopment = process.env.NODE_ENV === 'development'
 
 export const GraphqlProvider: React.FC = ({ children }) => {
-  const { token } = useTokenContext()
+  const { token } = useAccountContext()
   const { logout } = useAppContext()
   const authLink = setContext((_, { headers }) => {
     return {

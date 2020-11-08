@@ -1,6 +1,10 @@
 .home {
   h1 {
     font-size: 2.8rem;
+
+    button {
+      float: right;
+    }
   }
 
   h2 {
@@ -13,5 +17,14 @@
 
   canvas {
     margin-bottom: 3rem;
+  }
+
+  .compared-graphs {
+    width: 160%;
+    margin-left: calc(-30%);
+    @include mq() {
+      width: 100%;
+      margin-left: 0;
+    }
   }
 }
