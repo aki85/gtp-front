@@ -21,7 +21,7 @@ const Header = () => {
 
   function handleChange(e: any) {
     e.preventDefault()
-    if (e?.target?.value?.match(/[\\\*\+\.\?\{\}\(\)\[\]\^\$\|\/@]/)) return
+    if (e?.target?.value?.match(/[ -,\./:-@\[-`\{-~亜-熙ぁ-んァ-ヶ]/)) return
     setSearchId(e?.target?.value)
   }
 
