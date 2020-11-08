@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Link, useHistory, useLocation } from 'react-router-dom'
 import { useAppContext } from '../../contexts/app'
+import { githubIdValidate } from '../../utils/validator'
 
 const Header = () => {
   const location = useLocation()
@@ -21,7 +22,7 @@ const Header = () => {
 
   function handleChange(e: any) {
     e.preventDefault()
-    if (e?.target?.value?.match(/[ -,\./:-@\[-`\{-~亜-熙ぁ-んァ-ヶ]/)) return
+    if (githubIdValidate(e?.target?.value)) return
     setSearchId(e?.target?.value)
   }
 

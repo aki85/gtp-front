@@ -5,6 +5,7 @@ import { useGithubAnalysisByLoginQuery } from '../api'
 
 import GithubAnalysisGraphRow from './githubAnalysis/GraphRow'
 import GithubAnalysisError from './githubAnalysis/Error'
+import GithubAnalysisCompareForm from './githubAnalysis/CompareForm'
 import { useParams, useHistory, useLocation } from 'react-router-dom'
 import { useAccountContext } from '../contexts/app'
 import { Row, Col } from 'react-bootstrap'
@@ -55,7 +56,10 @@ const ViewComponent = () => {
           <h1>
             {data.githubAnalysisByLogin.login}
             {!compareTargetLogin &&
-              <button className="btn btn-dark" onClick={() => compareWithMine()}>Compare with mine</button>
+              <>
+                <GithubAnalysisCompareForm login={data.githubAnalysisByLogin.login!}/>
+                <button className="btn btn-dark" onClick={() => compareWithMine()}>Compare with mine</button>
+              </>
             }
           </h1>
         </Col>
@@ -69,6 +73,7 @@ const ViewComponent = () => {
               <>
                 <h1>
                   {compareTarget.data.githubAnalysisByLogin.login}
+                  <GithubAnalysisCompareForm login={data.githubAnalysisByLogin.login!}/>
                   <button className="btn btn-dark" onClick={() => clearCompareTarget()}>Clear</button>
                 </h1>
               </>
@@ -83,6 +88,14 @@ const ViewComponent = () => {
         compareGithubAnalysis={compareTarget.data?.githubAnalysisByLogin}
         type='owner'
       />
+
+      <Row className="d-md-none">
+        <Col md="12">
+          <GithubAnalysisCompareForm login={data.githubAnalysisByLogin.login!}/>
+          {!compareTargetLogin && <button className="btn btn-dark" onClick={() => compareWithMine()}>Compare with mine</button>}
+          {compareTargetLogin &&<button className="btn btn-dark" onClick={() => clearCompareTarget()}>Clear</button>}
+        </Col>
+      </Row>
 
       <GithubAnalysisGraphRow
         githubAnalysis={data.githubAnalysisByLogin}

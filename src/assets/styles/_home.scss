@@ -1,9 +1,34 @@
 .home {
+  .compare {
+    display: inline-block;
+    font-size: 1rem;
+    width: 250px;
+    input {
+      font-family: FontAwesome;
+      width: 200px;
+    }
+    a {
+      margin-left: 1rem;
+    }
+  }
+
+  button {
+    margin-bottom: 0;
+  }
+
   h1 {
     font-size: 2.8rem;
 
-    button {
+    .compare {
       float: right;
+      margin-top: 0.3rem;
+      margin-left: 1rem;
+      margin-right: -3rem;
+    }
+
+    button {
+      margin-left: 2rem;
+      margin-bottom: 1rem;
     }
   }
 
@@ -22,7 +47,7 @@
   .compared-graphs {
     width: 160%;
     margin-left: calc(-30%);
-    @include mq() {
+    @include mq {
       width: 100%;
       margin-left: 0;
     }
