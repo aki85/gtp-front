@@ -10,12 +10,12 @@ const HomeComponent = () => {
   const { data } = useAccountQuery()
 
   if (!data) {
-    return <><h1> - GitHubAnalysis</h1></>
+    return <></>
   }
 
   return (
     <>
-      <h1>{data.account.name} - GitHubAnalysis</h1>
+      <h1>{data.account.name}</h1>
 
       <GithubAnalysisGraph githubAnalysis={data.account.githubAnalysis!} />
     </>

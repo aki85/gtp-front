@@ -5,16 +5,21 @@ import 'chartjs-plugin-datalabels'
 import { GithubAnalysis } from '../../api'
 import { createGraphDataByLanguages, getGraphOptions } from '../../utils/graph'
 
-type Props = {githubAnalysis: GithubAnalysis}
+type Props = {
+  githubAnalysis: GithubAnalysis,
+  type?: 'involved'|'owner'
+}
 
-const GithubAnalysisGraph: React.FC<Props> = ({ githubAnalysis }) => {
+const GithubAnalysisGraph: React.FC<Props> = ({ githubAnalysis, type }) => {
   const involvedGraphData = createGraphDataByLanguages(githubAnalysis.languagesData.involvedLanguages)
   const ownerGraphData = createGraphDataByLanguages(githubAnalysis.languagesData.ownerLanguages)
   const options = getGraphOptions()
+  const hideOwner = type === 'involved'
+  const hideInvolved = type === 'owner'
 
   return (
     <>
-      {0 < githubAnalysis.repositoryCountData.ownerCount &&
+      {0 < githubAnalysis.repositoryCountData.ownerCount && !hideOwner &&
         <>
           <h2>作成したリポジトリ数: {githubAnalysis.repositoryCountData.ownerCount}</h2>
           <h3>言語レベル合計: {githubAnalysis.languagesData.ownerLanguagesTotal.level}</h3>
@@ -22,7 +27,7 @@ const GithubAnalysisGraph: React.FC<Props> = ({ githubAnalysis }) => {
         </>
       }
 
-      {0 < githubAnalysis.repositoryCountData.involvedCount &&
+      {0 < githubAnalysis.repositoryCountData.involvedCount && !hideInvolved &&
         <>
           <h2>関与したリポジトリ数: {githubAnalysis.repositoryCountData.involvedCount}</h2>
           <h3>言語レベル合計: {githubAnalysis.languagesData.involvedLanguagesTotal.level}</h3>

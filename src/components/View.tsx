@@ -3,7 +3,7 @@ import React from 'react'
 import 'chartjs-plugin-datalabels'
 import { useGithubAnalysisByLoginQuery } from '../api'
 
-import GithubAnalysisGraph from './githubAnalysis/Graph'
+import GithubAnalysisGraphRow from './githubAnalysis/GraphRow'
 import GithubAnalysisError from './githubAnalysis/Error'
 import { useParams, useHistory, useLocation } from 'react-router-dom'
 import { useAccountContext } from '../contexts/app'
@@ -33,7 +33,7 @@ const ViewComponent = () => {
   }
 
   if (!data) {
-    return <><h1> - GitHubAnalysis</h1></>
+    return <></>
   }
 
   function compareWithMine() {
@@ -50,37 +50,46 @@ const ViewComponent = () => {
 
   return (
     <>
-      <Row className={compareTargetLogin ? 'compared-graphs' : ''}>
+      <Row className={'d-none d-md-flex' + (compareTargetLogin ? ' compared-graphs' : '')}>
         <Col md={compareTargetLogin ? 6 : 12}>
           <h1>
-            {data.githubAnalysisByLogin.login} - GitHubAnalysis
+            {data.githubAnalysisByLogin.login}
             {!compareTargetLogin &&
               <button className="btn btn-dark" onClick={() => compareWithMine()}>Compare with mine</button>
             }
           </h1>
-          <GithubAnalysisGraph githubAnalysis={data.githubAnalysisByLogin} />
         </Col>
 
         {compareTargetLogin &&
           <Col md="6">
-            {!compareTarget.data && compareTarget.error &&
+            {compareTarget.error &&
               <GithubAnalysisError login={compareTargetLogin}/>
             }
-            {compareTarget.data &&
+            {!compareTarget.error && compareTarget.data &&
               <>
                 <h1>
-                  {compareTarget.data.githubAnalysisByLogin.login} - GitHubAnalysis
+                  {compareTarget.data.githubAnalysisByLogin.login}
                   <button className="btn btn-dark" onClick={() => clearCompareTarget()}>Clear</button>
                 </h1>
-                <GithubAnalysisGraph githubAnalysis={compareTarget.data.githubAnalysisByLogin} />
               </>
-            }
-            {!compareTarget.data &&
-              <><h1> - GitHubAnalysis</h1></>
             }
           </Col>
         }
       </Row>
+
+      <GithubAnalysisGraphRow
+        githubAnalysis={data.githubAnalysisByLogin}
+        isCompare={!!compareTargetLogin}
+        compareGithubAnalysis={compareTarget.data?.githubAnalysisByLogin}
+        type='owner'
+      />
+
+      <GithubAnalysisGraphRow
+        githubAnalysis={data.githubAnalysisByLogin}
+        isCompare={!!compareTargetLogin}
+        compareGithubAnalysis={compareTarget.data?.githubAnalysisByLogin}
+        type='involved'
+      />
     </>
   )
 }
