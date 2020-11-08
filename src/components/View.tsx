@@ -68,7 +68,7 @@ const ViewComponent = () => {
         {isCompare &&
           <Col md="6">
             {compareTarget.error &&
-              <GithubAnalysisError login={compareTargetLogin}/>
+              <GithubAnalysisError login={compareTargetLogin} mainLogin={login} hideFunc={() => hideCompareTarget()}/>
             }
             {!compareTarget.error && compareTarget.data &&
               <>

@@ -90,7 +90,7 @@ const HomeComponent = () => {
                 <button className="btn btn-dark" onClick={() => toPrev()}>Prev</button>
               }
               {logIndex >= githubAnalysisLogs.length &&
-                <div style={{display: 'inline-block', width: '88.56px'}}></div>
+                <div style={{display: 'inline-block', width: '72.56px'}}></div>
               }
               {0 < logIndex &&
                 <button className="btn btn-dark" onClick={() => toNext()}>Next</button>
@@ -118,7 +118,7 @@ const HomeComponent = () => {
                   <button className="btn btn-dark" onClick={() => toPrev()}>Prev</button>
                 }
                 {logIndex >= githubAnalysisLogs.length &&
-                  <div style={{display: 'inline-block', width: '88.56px'}}></div>
+                  <div style={{display: 'inline-block', width: '104.56px'}}></div>
                 }
                 {0 < logIndex &&
                   <button className="btn btn-dark" onClick={() => toNext()}>Next</button>
@@ -151,7 +151,7 @@ const HomeComponent = () => {
               {data!.account.name}
               <button className="btn btn-dark" onClick={() => hideCompare()}>Hide</button>
             </h1>
-            <h4>最終更新日時: {formatDate(githubAnalysis?.syncedAt)}</h4>
+            <h4>最終更新日時: {formatDate(data?.account.githubAnalysis?.syncedAt)}</h4>
           </Col>
         }
       </Row>
