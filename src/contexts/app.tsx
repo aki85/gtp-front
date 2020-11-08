@@ -32,7 +32,6 @@ export const AppContextProvider: React.FC = ({ children }) => {
     }
   }, [authService, currentAccount])
 
-  console.log('currentAccount', currentAccount)
   return (
     <AccountContext.Provider value={{token, setToken, currentAccount, setCurrentAccount}}>
       <AuthServiceContext.Provider value={authService}>

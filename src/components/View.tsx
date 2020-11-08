@@ -24,7 +24,8 @@ const ViewComponent = () => {
   const compareTarget = useGithubAnalysisByLoginQuery({
     variables: {
       login: compareTargetLogin
-    }
+    },
+    skip: !compareTargetLogin
   })
 
   if (error) {
@@ -46,8 +47,6 @@ const ViewComponent = () => {
       search: ''
     })
   }
-
-  console.log('compareTarget.error', compareTarget.error)
 
   return (
     <>
