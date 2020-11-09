@@ -8,14 +8,24 @@ https://github.com/aki85/gtp-server
 * yarn: ^1.9
 
 ## Installation
+```
 yarn
+```
 
 ## dev
 
+### .env
+```
+copy .env.example
+```
+setup .env
+
 ### graphql
 copy src/graphql/schema.graphql from your graphql server
-
+```
 yarn graphql-codegen
-
+```
 ### dev server
+```
 yarn start
+```
